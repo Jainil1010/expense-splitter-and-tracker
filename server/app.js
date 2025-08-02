@@ -2,9 +2,11 @@ import express, { json } from 'express';
 import { PORT } from './config/env.js';
 import connectToDatabase from './config/mongoDB.js';
 import authRouter from './routes/auth.routes.js';
+import errorMiddleware from './middlewares/error.middleware.js';
 
 const app = express();
 
+app.use(errorMiddleware);
 app.use(authRouter);
 
 app.get('/', (req, res) => {
