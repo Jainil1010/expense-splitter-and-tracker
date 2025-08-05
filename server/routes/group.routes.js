@@ -1,8 +1,10 @@
 import { Router } from 'express';
+import { createGroup } from '../controller/gropu.controller.js';
+import authorize from '../middlewares/auth.middleware.js';
 
 const groupRouter = new Router();
 
-groupRouter.post('/');
+groupRouter.post('/', authorize, createGroup);
 
 groupRouter.get('/');
 
