@@ -65,3 +65,30 @@ export const removeMember = async (req, res, next) => {
         next(error);
     }
 }
+
+export const changeMemberRole = async (req, res, next) => {
+    try {
+        const { groupId, userId } = req.params;
+        const { role } = req.body;
+        
+        const group = await Group.findById(groupId);
+        if (!group) return res.status(404).json({ success: false, message: "Group not found"  });
+
+        const isAdmin = group.members.some(m => 
+            m.user.equals(req.user._id) && m.role === "admin" );
+
+        if (!isAdmin) return res.status(403).json({ success: false, message: "Only admins can change member roles"});
+
+        const member = group.members.find(m => m.user.equals(userId));
+        if (member){
+            member.role = role;
+            await group.save();
+            res.json({ success: true, group });
+        } else{
+            res.status(404).json({ success: false, message: "Member not found" });
+        }
+
+    } catch (error) {
+        next(error);
+    }
+}
