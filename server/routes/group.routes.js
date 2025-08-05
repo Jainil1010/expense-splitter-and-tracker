@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { createGroup } from '../controller/gropu.controller.js';
+import { createGroup } from '../controller/group.controller.js';
 import authorize from '../middlewares/auth.middleware.js';
 
 const groupRouter = new Router();
