@@ -9,6 +9,8 @@ const app = express();
 app.use(errorMiddleware);
 app.use(authRouter);
 
+app.use('/api/v1/auth', authRouter);
+
 app.get('/', (req, res) => {
     res.send('Welcome to Bill Butcher API');
 });

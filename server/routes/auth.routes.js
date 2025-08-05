@@ -7,8 +7,4 @@ authRouter.post('/login', loginUser);
 
 authRouter.post('/register', registerUser);
 
-authRouter.post('/logout', (req, res) => {
-    res.send('logout');
-});
-
 export default authRouter;
