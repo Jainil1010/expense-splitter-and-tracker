@@ -1,5 +1,6 @@
 import Group from "../models/group.model.js";
 import User from "../models/user.model.js";
+import Expense from "../models/expense.model.js";
 
 export const createGroup = async (req, res, next) => {
     try {
@@ -88,6 +89,30 @@ export const changeMemberRole = async (req, res, next) => {
             res.status(404).json({ success: false, message: "Member not found" });
         }
 
+    } catch (error) {
+        next(error);
+    }
+}
+
+export const addExpense = async (req, res, next) => {
+    try {
+        const { description, ammount, currrency, cattegory, payers, splitBetween, date } = req.body;
+
+        const groupId = req.params._id;
+
+        const expense = await Expense.create({
+            groupId,
+            description,
+            amount,
+            currency,
+            category,
+            date,
+            payers, 
+            splitBetween,
+            createdBy: req.user._id
+        });
+        
+        res.status(201).json({ success: true, data: expense });   
     } catch (error) {
         next(error);
     }
