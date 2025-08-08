@@ -14,4 +14,8 @@ groupRouter.delete('/:id/members/:id', authorize, removeMember);
 
 groupRouter.put('/:id/settings');
 
-groupRouter.put(':id/members/:id/role', authorize, changeMemberRole);
+groupRouter.put('/:id/members/:id/role', authorize, changeMemberRole);
+
+groupRouter.post('/:id/expense');
+
+export default groupRouter;
